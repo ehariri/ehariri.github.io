@@ -37,7 +37,9 @@
 
 				<!-- Footer -->
 					<footer id="footer">
-						<span class="copyright">&copy; Emaan Hariri</span>
+						<span class="copyright">&copy; Emaan Hariri // 
+						<script type="text/javascript">document.write("Page Visits: " + localStorage.pagecount)</script>
+						</span> 
 						<!--Design: <a href="http://html5up.net">HTML5 UP</a>.-->
 					</footer>
 
@@ -48,6 +50,15 @@
 			window.onload = function() { document.body.className = ''; }
 			window.ontouchmove = function() { return false; }
 			window.onorientationchange = function() { document.body.scrollTop = 0; }
+			if (localStorage.pagecount)
+			 {
+			 localStorage.pagecount=Number(localStorage.pagecount) +1;
+			 }
+			else
+			 {
+			 localStorage.pagecount=1;
+			 }
+			//document.write("Visits: " + localStorage.pagecount + " time(s).")
 		</script>
 	</body>
 </html>
