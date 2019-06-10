@@ -2,6 +2,9 @@
 body {
     padding-top: 4.5rem;
     padding-bottom: 4.5rem;
+    /*background: url("sf.png");
+    background-size: cover;
+    background-repeat: no-repeat;*/
 }
 
 /* Sticky footer styles
@@ -44,6 +47,11 @@ html {
 
 a:hover  {
   text-decoration: none !important;
+}
+
+.jumbotron {
+  /* background: rgb(204, 204, 204);  This is for ie8 and below 
+   background: rgba(204, 204, 204, 0.85); */
 }
 
 /* Custom page CSS
