@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="./highlight/styles/a11y-light.css">
+    <script src="./highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -60,17 +65,85 @@
           <div class="jumbotron">
               <h1> CS 170</h1>
               <h2>Efficient Algorithms and Intractable Problems</h2>
-              <p>I will post my notes, slides, resources, etc. here as the semester progresses.</p>
+              <p>I will post my notes, code, resources, etc. here as the semester progresses.</p>
                   <div class="row">
                       <div class="col"> 
-                          <h3>Notes/Slides</h3>
+                          <h3>Notes/Code</h3>
                           <ul>
+                            <li>
+                              <a data-toggle="collapse" href="#mss_dac"  aria-expanded="false" aria-controls="collapseExample">Maximum subarray sum (divide-and-conquer)</a>
+                            <div class="collapse" id="mss_dac"><div class="card card-body"><pre class="python">
+<code>def mss_dac(a):
+    if not a: return None
+    n = len(a)
+    if n == 1: 
+        return a[0]
+    mid = n // 2
+    # divide 
+    l = mss_dac(a[:mid])
+    r = mss_dac(a[mid:])
+    # boundary condition
+    b_l = b_r = -float('inf')
+    s_l = s_r = 0
+    for i in range(mid, -1, -1):
+        s_l += a[i]
+        b_l = max(b_l, s_l)
+    for i in range(mid + 1, n):
+        s_r += a[i]
+        b_r = max(b_r, s_r)
+    b = b_l + b_r
+    # conquer
+    return max(l, r, b)</code></pre></div></div>
+                            </li>
+                            <li>
+                              <a data-toggle="collapse" href="#quickselect"  aria-expanded="false" aria-controls="collapseExample">Quickselect</a>
+                            <div class="collapse" id="quickselect"><div class="card card-body"><pre class="python">
+<code>from random import choice
+def quickselect(a, l):
+  if not a: return None
+  v = choice(a) # pivot selection
+  a_l, a_v, a_r = [], [], []
+  for e in a: 
+    if e < v: 
+      a_l.append(e)
+    elif e == v:
+      a_v.append(e)
+    else:
+      a_r.append(e)
+  if len(a_l) >= l:
+    return quickselect(a_l, l)
+  elif len(a_l) + len(a_v) >= l:
+    return v
+  else:
+    return quickselect(a_r, l - len(a_l) - len(a_v))</code></pre></div></div>
+                            </li>
+                            <li>
+                              <a data-toggle="collapse" href="#quantiles"  aria-expanded="false" aria-controls="collapseExample">Quantiles (\(k=2^m\) only)</a>
+                            <div class="collapse" id="quantiles"><div class="card card-body"><pre class="python">
+<code>def quantiles(a, k):
+  if not a: return None
+  assert(k >= 2 and (not k & (k-1))) # check if k is power of two
+  mid = len(a) // 2
+  med = quickselect(a, mid)
+  print(a, med)
+  if k == 2: return [med]
+  # less efficient method of getting left and right arrays
+  # could perform this in quickselect step
+  l = [e for e in a if e <= med][:mid]
+  r = [e for e in a if e >= med][-mid:]
+  q_l = quantiles(l, k // 2)
+  q_r = quantiles(r, k // 2)
+  return q_l + [med] + q_r</code></pre></div></div>
+                            </li>
                           </ul>
                       </div>
                       <div class="col">
                           <h3>Resources</h3>
                           <ul>
                               <li><a href="http://www.cs170.org/" target="_blank">Course Website</a></li>
+                              <li><a href="https://piazza.com/class/jz0o7nf7bd4jp" target="_blank">Piazza</a></li>
+                              <li><a href="https://tbp.berkeley.edu/courses/cs/170/" target="_blank">TBP Past Exams</a></li>
+                              <li><a href="https://hkn.eecs.berkeley.edu/exams/course/cs/170" target="_blank">HKN Past Exams</a></li>
                           </ul>
                       </div>
                   </div>
