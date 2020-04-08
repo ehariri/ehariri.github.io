@@ -135,6 +135,29 @@ def quickselect(a, l):
   q_r = quantiles(r, k // 2)
   return q_l + [med] + q_r</code></pre></div></div>
                             </li>
+                            <li>
+                              <a data-toggle="collapse" href="#unionfind"  aria-expanded="false" aria-controls="collapseExample">Union Find (with Path Compression)</a>
+                            <div class="collapse" id="unionfind"><div class="card card-body"><pre class="python">
+<code>class UnionFind:
+  def __init__(self, n):
+      self.pi = [i for i in range(n)]
+      self.rank = [0] * n
+  
+  def find(self, x):
+      if x != self.pi[x]: self.pi[x] = self.find(self.pi[x])
+      return self.pi[x]
+  
+  def union(self, x, y):
+      rx = self.find(x)
+      ry = self.find(y)
+      if rx == ry: return
+      if self.rank[rx] > self.rank[ry]:
+          self.pi[ry] = rx
+      else: 
+          self.pi[rx] = ry
+          if self.rank[rx] == self.rank[ry]:
+              self.rank[ry] += 1</code></pre></div></div>
+                            </li>
                           </ul>
                       </div>
                       <div class="col">
